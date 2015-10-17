@@ -10,7 +10,7 @@
 #define io_java_h
 
 #include <stdio.h>
-#include <jni.h>
+#include <JavaVM/jni.h>
 
 /*
  * Pointers to the needed JNI invocation API, initialized by LoadJavaVM.
