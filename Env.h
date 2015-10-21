@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <event2/event.h>
 #include <string>
+#include <jni.h>
+
 using namespace std;
 
 namespace io_java {
@@ -36,6 +38,8 @@ namespace io_java {
         
         
     };
+    
+#define MAKE_CALLBACK
 }
 
 #endif /* Env_hpp */

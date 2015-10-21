@@ -13,6 +13,14 @@
 
 using namespace io_java;
 
+void cb_func(evutil_socket_t fd, short what, void *arg)
+{
+    struct event *me = (event*)arg;
+    
+    printf("cb_func called %d times so far.\n");
+    
+}
+
 int main (int argc, char *argv[])
 {
     Env* env = Env::getOrCreate();
@@ -36,7 +44,13 @@ int main (int argc, char *argv[])
         printf("exception");
         return -2;
     }
-
+    struct event_base* loop = env->getEventLoop();
+    struct timeval one_sec = { 5, 0 };
+    struct event *ev;
+    ev = event_new(loop, -1, EV_PERSIST, cb_func, NULL);
+    event_add(ev, &one_sec);
+    event_base_dispatch(loop);
+   
     
     
     printf("hello world from io.java");
@@ -47,3 +61,6 @@ int main (int argc, char *argv[])
     
     return 0;
 }
+
+
+
