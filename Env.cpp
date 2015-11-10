@@ -12,7 +12,7 @@ using namespace io_java;
 
 
 
-Env::Env(JavaVM* vm, JNIEnv* env, event_base* loop)
+Env::Env(JavaVM* vm, JNIEnv* env, uv_loop_t* loop)
     :
     event_loop_(loop),
     vm_(vm),
@@ -20,7 +20,7 @@ Env::Env(JavaVM* vm, JNIEnv* env, event_base* loop)
     
 }
 
-struct event_base* Env::getEventLoop(){
+uv_loop_t* Env::getEventLoop(){
     return event_loop_;
 }
 
@@ -48,8 +48,8 @@ Env* Env::getOrCreate(){
         //    jmethodID mid = env->GetStaticMethodID(cls, "test", "(I)V");
         //    env->CallStaticVoidMethod(cls, mid, 100);
         /* We are done. */
-        
-        struct event_base* loop = event_base_new();
+       
+        uv_loop_t *loop = uv_default_loop();
         
         env_ = new Env(jvm,env,loop);
         

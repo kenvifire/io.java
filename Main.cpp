@@ -6,20 +6,14 @@
 #include <dlfcn.h>
 #include "io_java.h"
 #include <memory.h>
-#include <event2/event.h>
+#include "uv.h"
 #include <Env.h>
 #include <Env.cpp>
 #include <JavaVM/jni.h>
 
 using namespace io_java;
 
-void cb_func(evutil_socket_t fd, short what, void *arg)
-{
-    struct event *me = (event*)arg;
-    
-    printf("cb_func called %d times so far.\n");
-    
-}
+
 
 int main (int argc, char *argv[])
 {
@@ -44,12 +38,9 @@ int main (int argc, char *argv[])
         printf("exception");
         return -2;
     }
-    struct event_base* loop = env->getEventLoop();
-    struct timeval one_sec = { 5, 0 };
-    struct event *ev;
-    ev = event_new(loop, -1, EV_PERSIST, cb_func, NULL);
-    event_add(ev, &one_sec);
-    event_base_dispatch(loop);
+    uv_loop_t* loop = env->getEventLoop();
+    
+    uv_run(loop, UV_RUN_ONCE);
    
     
     
