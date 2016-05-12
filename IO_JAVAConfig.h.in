@@ -1,0 +1,8 @@
+// the configured options and settings for Tutorial
+#define IO_JAVA_VERSION_MAJOR @IO_JAVA_VERSION_MAJOR@
+#define IO_JAVA_VERSION_MINOR @IO_JAVA_VERSION_MINOR@
+
+
+ 
+
+
