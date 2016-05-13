@@ -13,7 +13,7 @@ struct callbak_args {
     JNIEnv *env;
     jobject callback;
     jmethodID methodId;
-    jobject args;
+    void* args;
     
 };
 

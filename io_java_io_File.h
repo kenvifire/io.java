@@ -7,14 +7,21 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     io_java_io_File
- * Method:    Read
- * Signature: (Lio/java/lang/Callback;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_io_java_io_File_Read
-  (JNIEnv *, jobject, jobject, jobjectArray);
-
+    /*
+     * Class:     io_java_io_File
+     * Method:    Open
+     * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lio/java/lang/Callback;[Ljava/lang/Object;)V
+     */
+    JNIEXPORT void JNICALL Java_io_java_io_File_Open
+    (JNIEnv *, jclass, jstring, jstring, jobject, jobject, jobjectArray);
+    /*
+     * Class:     io_java_io_File
+     * Method:    Read
+     * Signature: (Ljava/lang/Integer;[Ljava/lang/Byte;Ljava/lang/Integer;IILio/java/lang/Callback;)V
+     */
+    JNIEXPORT void JNICALL Java_io_java_io_File_Read
+    (JNIEnv *, jclass, jint, jbyteArray, jint, jint, jint, jobject);
+    
 #ifdef __cplusplus
 }
 #endif
