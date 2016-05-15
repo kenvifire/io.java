@@ -17,10 +17,10 @@ extern "C" {
     /*
      * Class:     io_java_io_File
      * Method:    Read
-     * Signature: (Ljava/lang/Integer;[Ljava/lang/Byte;Ljava/lang/Integer;IILio/java/lang/Callback;)V
+     * Signature: (ILio/java/lang/Callback;)V
      */
     JNIEXPORT void JNICALL Java_io_java_io_File_Read
-    (JNIEnv *, jclass, jint, jbyteArray, jint, jint, jint, jobject);
+    (JNIEnv *, jclass, jint, jobject);
     
 #ifdef __cplusplus
 }

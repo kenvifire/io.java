@@ -28,6 +28,7 @@ static uv_buf_t iov;
 
 struct read_arg{
     jbyteArray buffer;
+    int fd;
     int offset;
     int length;
     int position;
@@ -110,46 +111,57 @@ void on_open(uv_fs_t *req) {
 }
 
 JNIEXPORT void JNICALL Java_io_java_io_File_Read
-(JNIEnv *env, jclass clazz, jint fd, jbyteArray jbuffer, jint offset, jint length, jint position, jobject callback) {
-    
+(JNIEnv *env, jclass clazz, jint fd, jobject callback){
+
     struct callbak_args* callbackArgs = getCallbackArgs(env, callback);
     assert(callbackArgs != NULL);
+    
+    struct read_arg* readArgs = (struct read_arg*)malloc(sizeof(struct read_arg));
+    readArgs->fd = fd;
+    callbackArgs->args = (void*) readArgs;
+    
     read_req.data = (void*)callbackArgs;
-    struct read_arg* readArg = (struct read_arg*)malloc(sizeof(struct read_arg));
-    readArg->buffer = jbuffer;
-    readArg->length = length;
-    readArg->offset = offset;
-    readArg->position = position;
-    callbackArgs->args = (void*) readArg;
     
     iov = uv_buf_init(buffer, sizeof(buffer));
-    uv_fs_read(uv_default_loop(), &read_req, fd, &iov, 1, 0, on_read);
+    uv_fs_read(uv_default_loop(), &read_req, fd, &iov, 1, -1, on_read);
+    
+    uv_run(uv_default_loop(), UV_RUN_DEFAULT);
     
     
 }
 
 void on_read(uv_fs_t *req) {
-    printf("on read\n");
+    printf("on read");
     
-    callbak_args * callbackArgs = (struct callbak_args*) req->data;
+    struct callbak_args * callbackArgs = (struct callbak_args*) req->data;
     JNIEnv * env = callbackArgs->env;
-    struct read_arg* readArg =(struct read_arg*)callbackArgs->args;
-    jobjectArray argArray = createArgArray(env, 2);
+    struct read_arg* readArg = (struct read_arg*) callbackArgs->args;
+    int fd = readArg->fd;
     
-    if(req->result < 0) {
-        jstring error = env->NewStringUTF(uv_strerror((int)req->result));
+    jobjectArray argArray = createArgArray(env, 2);
+    if (req->result < 0) {
+        jstring error = env->NewStringUTF( uv_strerror((int)req->result));
         env->SetObjectArrayElement(argArray, 0, error);
-    }
-    else if (req->result == 0) {
+    }else if (req->result == 0) {
         uv_fs_t close_req;
-        uv_fs_close(uv_default_loop(), &close_req, open_req.result, NULL);
-        env->SetObjectArrayElement(argArray, 0, env->NewStringUTF("file already closed."));
-    }else if(req->result > 0) {
-        printf("result>0,%ld", req->result);
+        uv_fs_close(uv_default_loop(), &close_req, fd , NULL);
+        jstring error = env->NewStringUTF("file already closed.");
+        env->SetObjectArrayElement(argArray, 0, error);
+    }else {
         iov.len = req->result;
-        env->SetByteArrayRegion(readArg->buffer, readArg->offset, readArg->length, (const signed char*)buffer);
+        jbyteArray data = env->NewByteArray(iov.len);
+        env->SetByteArrayRegion(data, 0, iov.len, (jbyte *)buffer);
+        env->SetObjectArrayElement(argArray, 1, data);
         
     }
+    callbackArgs->env->CallVoidMethod(callbackArgs->callback, callbackArgs->methodId, argArray);
+    jthrowable t = callbackArgs->env->ExceptionOccurred();
+    if(t) {
+        printf("exception occured");
+        env->ExceptionDescribe();
+    }
+  
+
 }
 
 void on_write(uv_fs_t *req) {
@@ -165,6 +177,6 @@ void cb_func_file(evutil_socket_t fd, short what, void *arg)
     struct callbak_args* callbackArgs = (struct callbak_args*) arg;
     
     JNIEnv* env = callbackArgs->env;
-    env->CallVoidMethod(callbackArgs->callback, callbackArgs->methodId,callbackArgs->args);
+    env->CallVoidMethod(callbackArgs->callback, callbackArgs->methodId);
 }
 */
