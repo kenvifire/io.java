@@ -21,6 +21,13 @@ extern "C" {
      */
     JNIEXPORT void JNICALL Java_io_java_io_File_Read
     (JNIEnv *, jclass, jint, jobject);
+    /*
+     * Class:     io_java_io_File
+     * Method:    Write
+     * Signature: (I[BLio/java/lang/Callback;)V
+     */
+    JNIEXPORT void JNICALL Java_io_java_io_File_Write
+    (JNIEnv *, jclass, jint, jbyteArray, jobject);
     
 #ifdef __cplusplus
 }
