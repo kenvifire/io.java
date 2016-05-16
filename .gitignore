@@ -1,8 +1,9 @@
 CMakeFiles/*
 CMakeScripts/*
 Debug/*
-io.java.build/Debug/*
+io.java.build/*
 iojdk/io.java/.idea/*
 iojdk/io.java/out/*
 iojdk/io.java.iml
+io.java.xcodeproj/*
 
