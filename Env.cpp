@@ -70,6 +70,40 @@ void Env::dispose(){
     vm_->DestroyJavaVM();
 }
 
+jobjectArray createArgArray(JNIEnv *env, int size) {
+    jclass classObject = env->FindClass("java/lang/Object");
+    jobjectArray argArray = env->NewObjectArray(size, classObject, NULL);
+    return argArray;
+}
+
+jobject createIntObject(JNIEnv *env, int i) {
+    jclass classInteger = env->FindClass("java/lang/Integer");
+    jmethodID intConstructId = env->GetMethodID(classInteger, "<init>", "(I)V");
+    jobject intObj = env->NewObject(classInteger, intConstructId, i);
+    return intObj;
+}
+
+struct callbak_args* getCallbackArgs(JNIEnv *env, jobject callback) {
+    jclass cls = env->FindClass("io/java/lang/Callback");
+    
+    if (env->ExceptionOccurred()) {
+        printf("exception 1");
+        env->ExceptionDescribe();
+        return NULL;
+    }
+    jmethodID methodId = env->GetMethodID(cls, "apply", "([Ljava/lang/Object;)V");
+    if (env->ExceptionOccurred()) {
+        printf("exception 2");
+        env->ExceptionDescribe();
+        return NULL;
+    }
+    struct callbak_args * callbackArgs = (struct callbak_args*) malloc(sizeof(struct callbak_args));
+    callbackArgs->env = env;
+    callbackArgs->methodId = methodId;
+    callbackArgs->callback = callback;
+    return callbackArgs;
+    
+}
 
 
 

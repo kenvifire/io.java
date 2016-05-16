@@ -13,8 +13,21 @@
 #include <string>
 #include <jni.h>
 #include "uv.h"
+#include <stdlib.h>
+#include "type.h"
 
 using namespace std;
+
+// create callback args
+struct callbak_args* getCallbackArgs(JNIEnv *env, jobject callback);
+
+// create a java.lang.Integer object
+jobject createIntObject(JNIEnv *env, int i);
+
+// create a java array
+jobjectArray createArgArray(JNIEnv *env, int size);
+
+
 
 namespace io_java {
     class Env{
@@ -39,7 +52,9 @@ namespace io_java {
         
     };
     
-#define MAKE_CALLBACK
+    
+   
+    
 }
 
 #endif /* Env_hpp */

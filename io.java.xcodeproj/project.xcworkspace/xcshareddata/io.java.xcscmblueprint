@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A73BD4BF3E8BC654E5CC668159BB17A8CD0082EF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3" : 0,
+    "A73BD4BF3E8BC654E5CC668159BB17A8CD0082EF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BB1996D8-583A-40FC-9681-B18E1CA7C8EC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3" : "libuv\/",
+    "A73BD4BF3E8BC654E5CC668159BB17A8CD0082EF" : "io.java\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "io.java",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "io.java.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kenvifire\/io.java.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A73BD4BF3E8BC654E5CC668159BB17A8CD0082EF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/libuv\/libuv",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BC09C09DC2853BA9B3A84860F78F2E9FD790D8C3"
+    }
+  ]
+}
