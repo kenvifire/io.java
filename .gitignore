@@ -13,3 +13,5 @@ Makefile
 iojdk/.idea/*
 *.iml
 iojdk/out/*
+*.class
+*.a
