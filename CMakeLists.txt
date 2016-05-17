@@ -24,6 +24,6 @@ link_directories("/usr/local/lib" "/System/Library/Frameworks/JavaVM.framework/V
 FIND_LIBRARY(event libevent.a /usr/local/lib)
 #FIND_LIBRARY(jvm libjvm.dylib /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Libraries)
 
-add_library(libiojava Env.h Env.cpp io_java_lang_System.cpp io_java_lang_System.h)
+add_library(libiojava Env.h Env.cpp  io_java_lang_System.h)
 
 target_link_libraries(io.java event)
