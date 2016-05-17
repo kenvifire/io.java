@@ -20,7 +20,11 @@ int main (int argc, char *argv[])
     Env* env = Env::getOrCreate();
     JavaVM* vm = env->getVM();
     JNIEnv* jniEnv = env->getJNIEnv();
-    jclass cls = jniEnv->FindClass("Test");
+    if(argc < 2) {
+        printf("no main class specified.");
+        return -1;
+    }
+    jclass cls = jniEnv->FindClass(argv[1]);
     if (jniEnv->ExceptionOccurred()) {
         printf("exception");
         jniEnv->ExceptionDescribe();
