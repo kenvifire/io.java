@@ -7,8 +7,9 @@ import java.lang.System;
  * Created by kenvi on 15/10/21.
  */
 public class Main {
+
     public static void main(String[] args){
-        System.load("/Users/kenvi/code/study/io.java/Debug/liblibiojava.a");
+        System.load("/Users/hannahzhang/code/study/io.java/Debug/liblibiojava.a");
 //        Timer timer = new Timer(new Callback() {
 //            @Override
 //            public void apply(Object... args) {

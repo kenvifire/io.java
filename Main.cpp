@@ -31,14 +31,15 @@ int main (int argc, char *argv[])
         return -1;
     }
     
-    jmethodID mid = jniEnv->GetStaticMethodID(cls, "main", "()V");
+    jmethodID mid = jniEnv->GetStaticMethodID(cls, "main", "([Ljava/lang/String;)V");
     if (jniEnv->ExceptionOccurred()) {
         printf("exception");
         jniEnv->ExceptionDescribe();
         return -1;
     }
-    jniEnv->CallStaticVoidMethod(cls, mid);
+    jniEnv->CallStaticVoidMethod(cls, mid, NULL);
     if (jniEnv->ExceptionOccurred()) {
+        jniEnv->ExceptionDescribe();
         printf("exception");
         return -2;
     }
