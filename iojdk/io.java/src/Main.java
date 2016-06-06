@@ -9,7 +9,6 @@ import java.lang.System;
 public class Main {
 
     public static void main(String[] args){
-        System.load("/Users/hannahzhang/code/study/io.java/Debug/liblibiojava.a");
 //        Timer timer = new Timer(new Callback() {
 //            @Override
 //            public void apply(Object... args) {

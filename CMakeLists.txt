@@ -32,6 +32,7 @@ ADD_LIBRARY(jvm SHARED IMPORTED)
 SET_TARGET_PROPERTIES(jvm PROPERTIES IMPORTED_LOCATION /System/Library/Frameworks/JavaVM.framework/Versions/Current/JavaVM) 
 
 ENDIF (APPLE)
-add_library(libiojava Env.h Env.cpp  io_java_lang_System.h)
 
-target_link_libraries(io.java libuv jvm)
+add_library(libio Env.h Env.cpp  io_java_lang_System.h)
+
+target_link_libraries(io.java libuv jvm libio)
