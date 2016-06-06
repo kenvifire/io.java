@@ -12,7 +12,7 @@
 
 using namespace io_java;
 
-
+int loadLib(JNIEnv* jniEnv, const char* path);
 
 int main (int argc, char *argv[])
 {
@@ -23,12 +23,16 @@ int main (int argc, char *argv[])
         printf("no main class specified.");
         return -1;
     }
+    
+    
     jclass cls = jniEnv->FindClass(argv[1]);
+    
     if (jniEnv->ExceptionOccurred()) {
         printf("exception");
         jniEnv->ExceptionDescribe();
         return -1;
     }
+    loadLib(jniEnv, "/Users/hannahzhang/code/study/io.java/build/Debug/libjavaio.a");
     
     jmethodID mid = jniEnv->GetStaticMethodID(cls, "main", "([Ljava/lang/String;)V");
     if (jniEnv->ExceptionOccurred()) {
@@ -55,6 +59,17 @@ int main (int argc, char *argv[])
     
     
     return 0;
+}
+int loadLib(JNIEnv* jniEnv, const char* path) {
+    jclass cls = jniEnv->FindClass("java/lang/System");
+    if (jniEnv->ExceptionOccurred()) {
+        printf("exception");
+        jniEnv->ExceptionDescribe();
+        return -1;
+    }
+    jmethodID mid = jniEnv->GetStaticMethodID(cls,"loadLibrary","(Ljava/lang/String;)V");
+    jniEnv->CallStaticVoidMethod(cls, mid,NULL);
+    
 }
 
 

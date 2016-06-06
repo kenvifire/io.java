@@ -33,6 +33,6 @@ SET_TARGET_PROPERTIES(jvm PROPERTIES IMPORTED_LOCATION /System/Library/Framework
 
 ENDIF (APPLE)
 
-add_library(libio Env.h Env.cpp  io_java_lang_System.h)
+add_library(javaio Env.h Env.cpp  io_java_lang_System.h)
 
-target_link_libraries(io.java libuv jvm libio)
+target_link_libraries(io.java libuv jvm javaio)
