@@ -6,9 +6,9 @@
 #include <dlfcn.h>
 #include "io_java.h"
 #include <memory.h>
-#include "uv.h"
-#include <Env.h>
-#include <Env.cpp>
+#include <uv.h>
+#include "Env.h"
+#include "Env.cpp"
 #include <JavaVM/jni.h>
 
 using namespace io_java;
