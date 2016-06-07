@@ -25,6 +25,10 @@ int main (int argc, char *argv[])
     }
     
     
+    int loadResult = loadLib(jniEnv,"/Users/kenvi/code/study/io.java/build/Debug/libjavaio.dylib");
+    if(loadResult < 0) {
+        return loadResult;
+    }
     jclass cls = jniEnv->FindClass(argv[1]);
     
     if (jniEnv->ExceptionOccurred()) {
@@ -32,7 +36,6 @@ int main (int argc, char *argv[])
         jniEnv->ExceptionDescribe();
         return -1;
     }
-    loadLib(jniEnv, "/Users/hannahzhang/code/study/io.java/build/Debug/libjavaio.a");
     
     jmethodID mid = jniEnv->GetStaticMethodID(cls, "main", "([Ljava/lang/String;)V");
     if (jniEnv->ExceptionOccurred()) {
@@ -61,14 +64,27 @@ int main (int argc, char *argv[])
     return 0;
 }
 int loadLib(JNIEnv* jniEnv, const char* path) {
-    jclass cls = jniEnv->FindClass("java/lang/System");
+    jclass cls = jniEnv->FindClass("io/java/lang/System");
     if (jniEnv->ExceptionOccurred()) {
         printf("exception");
         jniEnv->ExceptionDescribe();
         return -1;
     }
-    jmethodID mid = jniEnv->GetStaticMethodID(cls,"loadLibrary","(Ljava/lang/String;)V");
-    jniEnv->CallStaticVoidMethod(cls, mid,NULL);
+    jmethodID mid = jniEnv->GetStaticMethodID(cls, "load", "()V");
+ //   jmethodID mid = jniEnv->GetStaticMethodID(cls, "load", "(Ljava/lang/String;)V");
+    if (jniEnv->ExceptionOccurred()) {
+        printf("exception");
+        jniEnv->ExceptionDescribe();
+        return -1;
+    }
+    jniEnv->CallStaticVoidMethod(cls, mid,jniEnv->NewStringUTF(path));
+    if (jniEnv->ExceptionOccurred()) {
+        printf("exception");
+        jniEnv->ExceptionDescribe();
+    }
+    
+    return 0;
+    
     
 }
 
