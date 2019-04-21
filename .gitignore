@@ -16,3 +16,4 @@ iojdk/out/*
 *.class
 *.a
 build/*
+*/*.class
